@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gui.MediationModerationController">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Análisis de Mediación y Moderación" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label text="Dataset Activo:" />
+                        <Label fx:id="activeDatasetLabel" text="Ninguno" style="-fx-font-weight: bold;" />
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox alignment="TOP_CENTER" spacing="10.0">
+                            <children>
+                                <Label text="Variables Disponibles:" />
+                                <ListView fx:id="availableVariablesListView" prefHeight="200.0" prefWidth="200.0" />
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" spacing="10.0">
+                            <children>
+                                <Label text="Variable Predictora (X):" />
+                                <ComboBox fx:id="predictorVariableComboBox" prefWidth="200.0" promptText="Seleccionar X" />
+                                <Label text="Variable Mediadora (M):" />
+                                <ComboBox fx:id="mediatorVariableComboBox" prefWidth="200.0" promptText="Seleccionar M" />
+                                <Label text="Variable Moderadora (W):" />
+                                <ComboBox fx:id="moderatorVariableComboBox" prefWidth="200.0" promptText="Seleccionar W" />
+                                <Label text="Variable Resultado (Y):" />
+                                <ComboBox fx:id="outcomeVariableComboBox" prefWidth="200.0" promptText="Seleccionar Y" />
+                                <Button onAction="#handleClearSelections" text="Limpiar Selecciones" />
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button onAction="#handlePerformMediation" text="Realizar Mediación" />
+                        <Button onAction="#handlePerformModeration" text="Realizar Moderación" />
+                    </children>
+                </HBox>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <content>
+                        <Label fx:id="resultsLabel" wrapText="true" />
+                    </content>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </ScrollPane>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

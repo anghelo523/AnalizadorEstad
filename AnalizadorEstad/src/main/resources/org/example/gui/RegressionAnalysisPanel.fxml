@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gui.RegressionAnalysisController">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Análisis de Regresión Lineal Múltiple" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label text="Dataset Activo:" />
+                        <Label fx:id="activeDatasetLabel" text="Ninguno" style="-fx-font-weight: bold;" />
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox alignment="TOP_CENTER" spacing="10.0">
+                            <children>
+                                <Label text="Variables Disponibles:" />
+                                <ListView fx:id="availableVariablesListView" prefHeight="200.0" prefWidth="200.0" />
+                                <HBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <Button onAction="#handleAddDependentVariable" text="Dependiente >" />
+                                        <Button onAction="#handleAddIndependentVariable" text="Independiente >" />
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" spacing="10.0">
+                            <children>
+                                <Label text="Variable Dependiente (Y):" />
+                                <ComboBox fx:id="dependentVariableComboBox" prefWidth="200.0" promptText="Seleccionar Y" />
+                                <Label text="Variables Independientes (X):" />
+                                <ListView fx:id="independentVariablesListView" prefHeight="200.0" prefWidth="200.0" />
+                                <HBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <Button onAction="#handleRemoveDependentVariable" text="< Quitar" />
+                                        <Button onAction="#handleRemoveIndependentVariable" text="< Quitar" />
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </HBox>
+                <Button onAction="#handlePerformRegression" text="Realizar Regresión" />
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <content>
+                        <Label fx:id="resultsLabel" wrapText="true" />
+                    </content>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </ScrollPane>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
