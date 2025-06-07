@@ -3,7 +3,7 @@ package org.example.dao;
 import org.example.model.Dataset;
 import org.example.model.Observation;
 import org.example.model.Variable;
-import org.example.util.SQLiteConnection; // ¡Importante!
+import org.example.util.SQLiteConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class DatasetDAO {
         String sqlVariable = "INSERT OR REPLACE INTO variables(id, dataset_id, name, type) VALUES(?, ?, ?, ?)";
         String sqlObservationValue = "INSERT OR REPLACE INTO observation_values(observation_id, dataset_id, variable_id, value_numeric, value_text) VALUES(?, ?, ?, ?, ?)";
 
-        try (Connection conn = SQLiteConnection.connect()) { // Usa SQLiteConnection.connect()
+        try (Connection conn = SQLiteConnection.connect()) {
             conn.setAutoCommit(false); // Start transaction
 
             // 1. Save/Update Dataset
@@ -134,7 +134,7 @@ public class DatasetDAO {
                 "JOIN variables v ON ov.variable_id = v.id " +
                 "WHERE ov.dataset_id = ? ORDER BY ov.observation_id, v.id";
 
-        try (Connection conn = SQLiteConnection.connect()) { // Usa SQLiteConnection.connect()
+        try (Connection conn = SQLiteConnection.connect()) {
             // Get Dataset details
             try (PreparedStatement pstmt = conn.prepareStatement(sqlDataset)) {
                 pstmt.setInt(1, datasetId);
@@ -183,7 +183,7 @@ public class DatasetDAO {
     public List<Dataset> getAllDatasets() throws SQLException {
         List<Dataset> datasets = new ArrayList<>();
         String sql = "SELECT id, name FROM datasets";
-        try (Connection conn = SQLiteConnection.connect(); // Usa SQLiteConnection.connect()
+        try (Connection conn = SQLiteConnection.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -199,7 +199,7 @@ public class DatasetDAO {
         String sqlDeleteVariables = "DELETE FROM variables WHERE dataset_id = ?";
         String sqlDeleteDataset = "DELETE FROM datasets WHERE id = ?";
 
-        try (Connection conn = SQLiteConnection.connect()) { // Usa SQLiteConnection.connect()
+        try (Connection conn = SQLiteConnection.connect()) {
             conn.setAutoCommit(false); // Start transaction
 
             // Delete in correct order due to foreign key constraints
@@ -228,7 +228,7 @@ public class DatasetDAO {
         String sqlValue = "INSERT OR REPLACE INTO observation_values(observation_id, dataset_id, variable_id, value_numeric, value_text) VALUES(?, ?, ?, ?, ?)";
         String sqlDeleteExistingValues = "DELETE FROM observation_values WHERE observation_id = ? AND dataset_id = ?";
 
-        try (Connection conn = SQLiteConnection.connect()) { // Usa SQLiteConnection.connect()
+        try (Connection conn = SQLiteConnection.connect()) {
             conn.setAutoCommit(false);
 
             // Ensure the observation row exists
@@ -300,7 +300,7 @@ public class DatasetDAO {
         String sqlDeleteObservationValues = "DELETE FROM observation_values WHERE dataset_id = ?";
         String sqlDeleteObservations = "DELETE FROM observations WHERE dataset_id = ?";
 
-        try (Connection conn = SQLiteConnection.connect()) { // Usa SQLiteConnection.connect()
+        try (Connection conn = SQLiteConnection.connect()) {
             conn.setAutoCommit(false); // Start transaction
 
             try (PreparedStatement pstmt = conn.prepareStatement(sqlDeleteObservationValues)) {
@@ -320,7 +320,7 @@ public class DatasetDAO {
 
     // NEW METHOD FOR CLEANING ALL DATA
     public void deleteAllDatasetsAndData() throws SQLException {
-        try (Connection conn = SQLiteConnection.connect(); // Usa SQLiteConnection.connect()
+        try (Connection conn = SQLiteConnection.connect();
              Statement stmt = conn.createStatement()) {
             conn.setAutoCommit(false); // Iniciar transacción
 
@@ -336,7 +336,7 @@ public class DatasetDAO {
             System.out.println("Todos los datasets y sus datos han sido eliminados.");
         } catch (SQLException e) {
             // IMPORTANTE: Si hay un error, revertir la transacción.
-            try (Connection conn = SQLiteConnection.connect()) { // Usa SQLiteConnection.connect()
+            try (Connection conn = SQLiteConnection.connect()) {
                 if (conn != null) {
                     conn.rollback();
                 }
